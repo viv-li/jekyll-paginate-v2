@@ -6,6 +6,9 @@ module Jekyll
       # Static: returns a fully formatted string with the tag macro (:tag) replaced
       #
       def self.format_tag_macro(toFormat, tag, slugify_config=nil)
+        if slugify_config.nil?
+          return toFormat.sub(':tag', tag.to_s)
+        end
         slugify_mode = slugify_config.has_key?('mode') ? slugify_config['mode'] : nil
         slugify_cased = slugify_config.has_key?('cased') ? slugify_config['cased'] : false
         return toFormat.sub(':tag', Jekyll::Utils.slugify(tag.to_s, mode:slugify_mode, cased:slugify_cased))
@@ -14,6 +17,9 @@ module Jekyll
       # Static: returns a fully formatted string with the category macro (:cat) replaced
       #
       def self.format_cat_macro(toFormat, category, slugify_config=nil)
+        if slugify_config.nil?
+          return toFormat.sub(':cat', category.to_s)
+        end
         slugify_mode = slugify_config.has_key?('mode') ? slugify_config['mode'] : nil
         slugify_cased = slugify_config.has_key?('cased') ? slugify_config['cased'] : false
         return toFormat.sub(':cat', Jekyll::Utils.slugify(category.to_s, mode:slugify_mode, cased:slugify_cased))
@@ -22,6 +28,9 @@ module Jekyll
       # Static: returns a fully formatted string with the collection macro (:coll) replaced
       #
       def self.format_coll_macro(toFormat, collection, slugify_config=nil)
+        if slugify_config.nil?
+          return toFormat.sub(':coll', collection.to_s)
+        end
         slugify_mode = slugify_config.has_key?('mode') ? slugify_config['mode'] : nil
         slugify_cased = slugify_config.has_key?('cased') ? slugify_config['cased'] : false
         return toFormat.sub(':coll', Jekyll::Utils.slugify(collection.to_s, mode:slugify_mode, cased:slugify_cased))
