@@ -18,7 +18,8 @@ module Jekyll
         end
 
         get_autopage_title_lambda = lambda do |title_pattern|
-          return Utils.format_cat_macro(title_pattern, category, slugify_config)
+          # Use the original unslugified category name in the title
+          return Utils.format_cat_macro(title_pattern, category_name)
         end
                 
         # Call the super constuctor with our custom lambda
