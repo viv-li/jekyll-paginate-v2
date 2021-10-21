@@ -20,10 +20,17 @@ module Jekyll
 
       # TODO: Should I detect here and disable if we're running the legacy paginate code???!
 
-      # Simply gather all documents across all pages/posts/collections that we have
+      # If autopage is configured for a specific collection, only fetch docs from that collection
+      # to run through autopages
+      if autopage_config['collection']
+        collection = site.collections.select {|k,v| k == autopage_config['collection']}
+        posts_to_use = Utils.collect_all_docs(collection)
+      # Otherwise, simply gather all documents across all pages/posts/collections that we have
       # we could be generating quite a few empty pages but the logic is just vastly simpler than trying to 
       # figure out what tag/category belong to which collection.
-      posts_to_use = Utils.collect_all_docs(site.collections)
+      else
+        posts_to_use = Utils.collect_all_docs(site.collections)
+      end
 
       ###############################################
       # Generate the Tag pages if enabled
